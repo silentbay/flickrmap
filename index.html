@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<!--Flickr map with layer json plugin -->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Flickr map test</title>
+<link rel="stylesheet" href="/data/leaflet.css"/>
+<script src="/data/leaflet.min.js"></script>
+<script src="/data/leaflet-layerjson.min.js"></script>
+<script src="/data/jquery.min.js"></script>
+<style>
+html, body { height: 100%; margin: 0; }
+.leaflet-popup-content { width:auto !important; }
+#map { height: 100%; }
+</style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script>
+
+var map = L.map('map', {
+    center: [
+        54.7, 56
+    ],
+    zoom: 10,
+    zoomAnimation: true
+});
+var baseLayers = {
+    '2Gis': L.tileLayer('https://tile{s}.maps.2gis.com/tiles?x={x}&y={y}&z={z}&v=1&ts=online_sd', {subdomains: '1234'}).addTo(map),
+    'OSM': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'),
+    'Sputnik': L.tileLayer('https://tilessputnik.ru/{z}/{x}/{y}.png'),
+	'Mapy.cz': L.tileLayer('https://mapserver.mapy.cz/base-m/{z}-{x}-{y}.png')
+};
+https://mapserver.mapy.cz/base-m/
+//https://windytiles.mapy.cz/turist-en/12-2682-1303
+
+// popup
+
+var popupContent = function (data, markers) {
+        return "<strong>" + data.title + "</strong><br><img src='" + data.url_s + "'>" + "<br>" + "<a href='https://www.flickr.com/photos/" + data.pathalias + "/" + data.id + "'target='_blank'>View on Flickr</a>" || null;
+    };
+
+
+
+
+var panoramio=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157696276674562&user_id=141261516%40N04&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var minvody=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157701218301905&user_id=141261516%40N04&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var volgograd=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157700316702354&user_id=141261516%40N04&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var ufa2019=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157713052343721&user_id=169966799@N03&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var ufa2018=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157706272769331&user_id=169966799@N03&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var ufa2017=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157706851208065&user_id=169966799@N03&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var ufa2016=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157706847311185&user_id=169966799@N03&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var ufa2015=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157678846343468&user_id=169966799@N03&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var ufa2014=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157689843453103&user_id=169966799@N03&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var makarovo=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157713039112561&user_id=167191756@N06&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var uchaly=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157705306518404&user_id=167191756@N06&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var toratau=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157705257706865&user_id=167191756@N06&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var sterlitamak=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157705257675235&user_id=167191756@N06&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var salda=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157705306248064&user_id=167191756@N06&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var ishimbai2019=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157712996811238&user_id=167191756@N06&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var ishimbai2018=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157701962081012&user_id=167191756@N06&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var ishimbai2017=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157705285455614&user_id=167191756@N06&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var ishimbai2016=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157675105380797&user_id=167191756@N06&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var ishimbai2015=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157701961372162&user_id=167191756@N06&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var ishimbai2014=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157675086564957&user_id=167191756@N06&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var ishimbai2012=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157677245642798&user_id=167191756@N06&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var ishimbai2011=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157677238704238&user_id=167191756@N06&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var ishimbai2010=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157701933619992&user_id=167191756@N06&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var ishimbai2009=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157699306599850&user_id=167191756@N06&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var ishimbai2008=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157675077505137&user_id=167191756@N06&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var ishimbai2007=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157701933063692&user_id=167191756@N06&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var ishimbai2006=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157705253447704&user_id=167191756@N06&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+var ishimbai2005=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157701932881212&user_id=167191756@N06&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
+
+// ///////////////////////////////////////////////////////////////////////////////////////////
+// layer control//
+// ///////////////////////////////////////////////////////////////////////////////////////////
+var overlays = {
+	'Panoramio.com' : panoramio,
+	'Минеральные Воды' : minvody,
+	'Волгоград' : volgograd,
+	'Макарово' : makarovo,
+	'Торатау 2012' : toratau,
+	'Учалы 2014' : uchaly,
+	'Стерлитамак 2014' : sterlitamak,
+	'Верхняя Салда 2014' : salda,
+	'Уфа 2019' : ufa2019,
+	'Уфа 2018' : ufa2018,
+	'Уфа 2017' : ufa2017,
+	'Уфа 2016' : ufa2016,
+	'Уфа 2015' : ufa2015,
+	'Уфа 2014' : ufa2014,
+	'Ишимбай 2019' : ishimbai2019,
+	'Ишимбай 2018' : ishimbai2018,
+	'Ишимбай 2017' : ishimbai2017,
+	'Ишимбай 2016' : ishimbai2016,
+	'Ишимбай 2015' : ishimbai2015,
+	'Ишимбай 2014' : ishimbai2014,
+	'Ишимбай 2012' : ishimbai2012,
+	'Ишимбай 2011' : ishimbai2011,
+	'Ишимбай 2010' : ishimbai2010,
+	'Ишимбай 2009' : ishimbai2009,
+	'Ишимбай 2008' : ishimbai2008,
+	'Ишимбай 2007' : ishimbai2007,
+	'Ишимбай 2006' : ishimbai2006,
+	'Ишимбай 2005' : ishimbai2005	
+};
+
+
+
+L.control.layers(baseLayers, null, {position: "bottomleft"}).addTo(map);
+L.control.layers(null, overlays, {collapsed: false}).addTo(map);
+
+
+</script>
+</body>
+</html>
