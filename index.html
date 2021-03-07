@@ -53,6 +53,8 @@ var minvody=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=f
 
 var volgograd=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157700316702354&user_id=141261516%40N04&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
 
+var ufa2020=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157718558166707&user_id=169966799@N03&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});	
+	
 var ufa2019=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157713052343721&user_id=169966799@N03&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
 
 var ufa2018=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157706272769331&user_id=169966799@N03&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
@@ -115,6 +117,7 @@ var overlays = {
 	'Учалы 2014' : uchaly,
 	'Стерлитамак 2014' : sterlitamak,
 	'Верхняя Салда 2014' : salda,
+	'Уфа 2020' : ufa2020,
 	'Уфа 2019' : ufa2019,
 	'Уфа 2018' : ufa2018,
 	'Уфа 2017' : ufa2017,
