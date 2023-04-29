@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Flickr map test</title>
+<title>Flickr map</title>
 <link rel="stylesheet" href="/flickrmap/data/leaflet.css"/>
 <script src="/flickrmap/data/leaflet.min.js"></script>
 <script src="/flickrmap/data/leaflet-layerjson.min.js"></script>
@@ -29,11 +29,26 @@ var map = L.map('map', {
     zoom: 10,
     zoomAnimation: true
 });
+
+map.on('baselayerchange', function (e) {
+ var center = map.getCenter();
+ var zoom = map.getZoom();
+ // L.CRS.EPSG3857 // OSM, Google, Bing etc.
+ // L.CRS.EPSG3395 // Yandex elliptical
+ map.options.crs = e
+  .layer
+  .options
+  .isElliptical
+   ? L.CRS.EPSG3395
+   : L.CRS.EPSG3857;
+ map._resetView(center, zoom, false, false);
+});
+
 var baseLayers = {
     '2Gis': L.tileLayer('https://tile{s}.maps.2gis.com/tiles?x={x}&y={y}&z={z}&v=1&ts=online_sd', {subdomains: '1234'}).addTo(map),
     'OSM': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'),
-    'Sputnik': L.tileLayer('https://tilessputnik.ru/{z}/{x}/{y}.png'),
-	'Mapy.cz': L.tileLayer('https://mapserver.mapy.cz/base-m/{z}-{x}-{y}.png')
+	'Yandex': L.tileLayer('https://core-renderer-tiles.maps.yandex.net/tiles?l=map&x={x}&y={y}&z={z}&scale=1&lang=ru-RU', {isElliptical : true}),
+	'Google': L.tileLayer('https://mt{s}.google.com/vt/lyrs=m&hl=ru&x={x}&y={y}&z={z}', {subdomains: '0123'})
 };
 https://mapserver.mapy.cz/base-m/
 //https://windytiles.mapy.cz/turist-en/12-2682-1303
@@ -45,7 +60,7 @@ var popupContent = function (data, markers) {
     };
 
 
-
+var pano360=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157696799299410&user_id=141261516%40N04&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
 
 var panoramio=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157696276674562&user_id=141261516%40N04&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
 
@@ -53,7 +68,9 @@ var minvody=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=f
 
 var volgograd=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157700316702354&user_id=141261516%40N04&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
 
-var ufa2020=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157718558166707&user_id=169966799@N03&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});	
+var ufa2021=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72177720295685612&user_id=169966799@N03&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});	
+	
+var ufa2020=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157720124607025&user_id=169966799@N03&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});	
 	
 var ufa2019=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=9c22211a1113b614b6c674d121a9db76&photoset_id=72157713052343721&user_id=169966799@N03&extras=geo%2Curl_s%2Cpath_alias&per_page=200&format=json&nojsoncallback=1",propertyItems:'photoset.photo',propertyLoc:['latitude','longitude'],buildPopup:popupContent});
 
@@ -109,6 +126,7 @@ var ishimbai2005=new L.LayerJSON({url:"https://www.flickr.com/services/rest/?met
 // layer control//
 // ///////////////////////////////////////////////////////////////////////////////////////////
 var overlays = {
+	'360' : pano360,
 	'Panoramio.com' : panoramio,
 	'Минеральные Воды' : minvody,
 	'Волгоград' : volgograd,
@@ -117,6 +135,7 @@ var overlays = {
 	'Учалы 2014' : uchaly,
 	'Стерлитамак 2014' : sterlitamak,
 	'Верхняя Салда 2014' : salda,
+	'Уфа 2021' : ufa2021,
 	'Уфа 2020' : ufa2020,
 	'Уфа 2019' : ufa2019,
 	'Уфа 2018' : ufa2018,
